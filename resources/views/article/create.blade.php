@@ -23,7 +23,7 @@
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->category_id }}">{{ $category->name }}</option>
                                 @endforeach
-                            </select>                            
+                            </select>
                         </div>
                         <label for="imageUpload" class="form-label">Upload Image</label>
                         <div class="mb-4 input-group input-group-static">
@@ -37,7 +37,8 @@
                         </div>
                         <div class="input-group mb-4 input-group-static">
                             <label>Content</label>
-                            <textarea name="content" class="form-control" id="content" rows="4"></textarea>
+                            {{-- <textarea name="content" class="form-control" id="content" rows="4"></textarea> --}}
+                            <textarea id="summernote" name="content" class="form-control" rows="4"></textarea>
                         </div>
                         <div class="form-check form-switch mb-4 d-flex align-items-center">
                             <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked>
@@ -52,3 +53,20 @@
     </section>
 @endsection
 
+@section('page-js')
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                placeholder: 'Enter text here...', // Optional placeholder text
+                tabsize: 2,
+                height: 120 // Adjust height as needed
+            });
+        });
+    </script>
+@endsection
