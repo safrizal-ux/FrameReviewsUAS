@@ -1,13 +1,15 @@
 @extends('layout.content')
 
 @section('content')
-    <div class="container">
+    {{-- <div class="container">
         <div class="row">
             <div class="row justify-content-center text-center my-sm-5">
-                <span class="badge bg-success mb-3">Upload</span>
+                <span class="badge bg-success mb-3">Review</span>
             </div>
         </div>
-    </div>
+    </div> --}}
+    <br>
+    <br>
     <section>
         <div class="row">
             <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
