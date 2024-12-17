@@ -22,7 +22,7 @@
                         id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-symbols-rounded opacity-6 me-2 text-md">dashboard</i>
                         Pages
-                        <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
+                        <img src="{{asset('assets/img/down-arrow-dark.svg')}}" alt="down-arrow" class="arrow ms-auto ms-md-2">
                     </a>
                     <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
                         aria-labelledby="dropdownMenuPages">
@@ -81,7 +81,7 @@
                         id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-symbols-rounded opacity-6 me-2 text-md">view_day</i>
                         Sections
-                        <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
+                        <img src="{{asset('assets/img/down-arrow-dark.svg')}}" alt="down-arrow" class="arrow ms-auto ms-md-2">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive p-3 border-radius-lg mt-0 mt-lg-3"
                         aria-labelledby="dropdownMenuBlocks">
@@ -95,7 +95,7 @@
                                                 Page Sections</h6>
                                             <span class="text-sm">See all sections</span>
                                         </div>
-                                        <img src="./assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        <img src="{{asset('assets/img/down-arrow.svg')}}" alt="down-arrow" class="arrow">
                                     </div>
                                 </a>
                                 <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
@@ -119,7 +119,7 @@
                                                 Navigation</h6>
                                             <span class="text-sm">See all navigations</span>
                                         </div>
-                                        <img src="./assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        <img src="{{asset('assets/img/down-arrow.svg')}}" alt="down-arrow" class="arrow">
                                     </div>
                                 </a>
                                 <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
@@ -147,7 +147,7 @@
                                                 Input Areas</h6>
                                             <span class="text-sm">See all input areas</span>
                                         </div>
-                                        <img src="./assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        <img src="{{asset('assets/img/down-arrow.svg')}}" alt="down-arrow" class="arrow">
                                     </div>
                                 </a>
                                 <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
@@ -171,7 +171,7 @@
                                                 Attention Catchers</h6>
                                             <span class="text-sm">See all examples</span>
                                         </div>
-                                        <img src="./assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        <img src="{{asset('assets/img/down-arrow.svg')}}" alt="down-arrow" class="arrow">
                                     </div>
                                 </a>
                                 <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
@@ -200,7 +200,7 @@
                                             <span class="text-sm">See all elements</span>
                                         </div>
 
-                                        <img src="./assets/img/down-arrow.svg" alt="down-arrow" class="arrow">
+                                        <img src="{{asset('assets/img/down-arrow.svg')}}" alt="down-arrow" class="arrow">
                                     </div>
                                 </a>
                                 <div class="dropdown-menu mt-0 py-3 px-2 mt-3">
@@ -392,7 +392,7 @@
                         id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-symbols-rounded opacity-6 me-2 text-md">article</i>
                         Docs
-                        <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
+                        <img src="{{asset('assets/img/down-arrow-dark.svg')}}" alt="down-arrow" class="arrow ms-auto ms-md-2">
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg"
                         aria-labelledby="dropdownMenuDocs">
@@ -499,7 +499,13 @@
                 <li class="nav-item ms-lg-auto">
                     <a class="nav-link nav-link-icon me-2" href="">
                         <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" data-bs-original-title="Star us on Github">Buat</p>
+                            data-bs-placement="bottom" data-bs-original-title="Star us on Github">Upload</p>
+                    </a>
+                </li>
+                <li class="nav-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2" href="{{route('article.create')}}">
+                        <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" data-bs-original-title="Star us on Github">Write</p>
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown-hover mx-2">
@@ -507,9 +513,9 @@
                         id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="material-symbols-rounded opacity-6 me-2 text-md">dashboard</i>
                         Account
-                        <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
+                        <img src="{{asset('assets/img/down-arrow-dark.svg')}}" alt="down-arrow" class="arrow ms-auto ms-md-2">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-animation ms-n3 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
+                    <div class="dropdown-menu dropdown-menu-animation ms-n8 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
                         aria-labelledby="dropdownMenuPages">
                         <div class="d-none d-lg-block">
                             <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
@@ -561,4 +567,3 @@
             </ul>
         </div>
     </div>
-    </>

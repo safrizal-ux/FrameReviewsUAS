@@ -102,7 +102,7 @@
                             </form>
                             <div style="text-align: center;">
                                 <a class="mt-4 text-sm" href="{{ route('login') }}">
-                                    Or already have account?
+                                    Or already have account? Login
                                 </a>
                             </div> 
                         </div>

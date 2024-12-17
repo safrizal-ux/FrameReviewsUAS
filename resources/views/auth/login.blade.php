@@ -98,7 +98,7 @@
                             </form>
                             <div style="text-align: center;">
                                 <a class="mt-4 text-sm" href="{{ route('register') }}">
-                                    Don't have an account?
+                                    Don't have an account? Register
                                 </a>
                             </div>                            
                         </div>
