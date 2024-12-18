@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB; // Import query builder facade
 use HTMLPurifier;
 use HTMLPurifier_Config;
@@ -38,31 +39,38 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        // dd($request->all());
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
+{
+    // Validasi input
+    // dd($request->all());
+    $request->validate([
+        'title' => 'required|max:255',
+        'content' => 'required',
+        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'category' => 'required' // Pastikan category yang dipilih valid
+    ]);
 
-        $data = [
-            'title' => $request->title,
-            'content' => $request->content,
-            'category_id' => $request->category,
-            'published_at' => now()
-        ];
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension(); // Create a unique image file name
-            // Store the image in the 'public/images' folder on the public disk
-            $request->image->storeAs('images', $imageName, 'public');
-            $data['post_image'] = $imageName; // Store image name in the array to save in the database or use later
-        }
+    // Data yang akan disimpan
+    $data = [
+        'title' => $request->title,
+        'content' => $request->content,
+        'category_id' => $request->category,
+        'published_at' => now(),
+        'user_id' => $request->user_id // Menggunakan ID pengguna yang sedang login
+    ];
 
-        DB::table('articles')->insert($data);
-
-        return redirect()->route('article.index')->with('success', 'Article created successfully.');
+    // Jika ada file gambar yang diunggah
+    if ($request->hasFile('image')) {
+        $imageName = time() . '.' . $request->image->extension(); // Nama file unik
+        $request->image->storeAs('images', $imageName, 'public'); // Simpan di folder public/images
+        $data['post_image'] = $imageName; // Tambahkan ke array data
     }
+
+    // Gunakan model untuk menyimpan data
+    Article::create($data); // Menggunakan model untuk menyimpan agar lebih rapi
+
+    // Redirect ke halaman index dengan pesan sukses
+    return redirect()->route('article.index')->with('success', 'Article created successfully.');
+}
 
     /**
      * Display the specified resource.

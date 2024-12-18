@@ -90,19 +90,6 @@
             </ul>
 
             <!-- Bagian kanan (Search bar) -->
-
-            <form method="GET" action="{{ route('article.search') }}" class="d-flex align-items-center ms-auto custom-search-bar">
-                <div class="row w-100">
-                    <div class="col-sm-8">
-                        <div class="input-group input-group-outline">
-                            <input class="form-control" type="text" name="query" placeholder="Search articles...">
-                        </div>
-                    </div>
-                    <div class="col-sm-4 ps-0">
-                        <button type="submit" class="btn btn-dark w-100">Search</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </nav>
