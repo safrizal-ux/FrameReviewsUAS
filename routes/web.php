@@ -1,12 +1,24 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\Admin;
+use App\Http\Middleware\User;
 
-// Route::get('/', function () {
-//     return view('layout.content');
-// });
+Route::get('/', function () {
+    if (Auth::check()) {
+        if (Auth::user()->role_id === 1) {
+            return redirect('/admin/dashboard'); // Admin
+        } elseif (Auth::user()->role_id === 2) {
+            return redirect('/user/dashboard'); // User
+        }
+    }
+    return redirect('/login'); // Jika belum login
+});
+
 // Route::get('/kontol', function () {
 //     return view('article.create');
 // });
@@ -26,3 +38,10 @@ Route::get('/article/create', [ArticleController::class, 'create'])->name('artic
 Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
 Route::get('/article/show/{id}', [ArticleController::class, 'show'])->name('article.show');
 
+Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])
+    ->name('admin.dashboard')
+    ->middleware(Admin::class);
+
+Route::get('/user/dashboard', [DashboardController::class, 'userDashboard'])
+    ->name('user.dashboard')
+    ->middleware(User::class);

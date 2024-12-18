@@ -27,13 +27,28 @@ class AuthController extends Controller
             'password'  => $request->password
         ];
 
-        if (auth::attempt($data)) {
-            return redirect()->route('article.index');
-        } else {
-            return redirect()->route('login');
-        } 
-    }
+        if (Auth::attempt($data)) {
+            $user = Auth::user();
     
+            // Redirect berdasarkan role
+            if ($user->role_id === 1) {
+                return redirect()->route('admin.dashboard'); // Admin Dashboard
+            } elseif ($user->role_id === 2) {
+                return redirect()->route('user.dashboard'); // User Dashboard
+            }
+    
+            // Default redirect jika role tidak dikenali
+            return redirect()->route('login')->withErrors(['error' => 'Role tidak dikenali.']);
+        } else {
+            return redirect()->route('login')->withErrors(['error' => 'Email atau password salah.']);
+        }
+    
+    }
+    // if (auth::attempt($data)) {
+    //     return redirect()->route('article.index');
+    // } else {
+    //     return redirect()->route('login');
+    // } 
     public function register()
     {
         return view('auth.register');
