@@ -1,13 +1,6 @@
 @extends('layout.content')
 
 @section('content')
-    {{-- <div class="container">
-        <div class="row">
-            <div class="row justify-content-center text-center my-sm-5">
-                <span class="badge bg-success mb-3">Review</span>
-            </div>
-        </div>
-    </div> --}}
     <br>
     <br>
     <section>
@@ -17,6 +10,9 @@
                 <form role="form" id="contact-form" method="post" action="{{ route('article.store') }}" autocomplete="off"
                     enctype="multipart/form-data">
                     @csrf
+                    <!-- Hidden input for user ID -->
+                    <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                    
                     <div class="card-body">
                         <label for="category" class="form-label">Category</label>
                         <div class="mb-4 input-group input-group-dynamic">
@@ -39,7 +35,6 @@
                         </div>
                         <div class="input-group mb-4 input-group-static">
                             <label>Content</label>
-                            {{-- <textarea name="content" class="form-control" id="content" rows="4"></textarea> --}}
                             <textarea id="summernote" name="content" class="form-control" rows="4"></textarea>
                         </div>
                         <div class="form-check form-switch mb-4 d-flex align-items-center">
@@ -54,6 +49,7 @@
         </div>
     </section>
 @endsection
+
 
 @section('page-js')
     <!-- include summernote css/js -->

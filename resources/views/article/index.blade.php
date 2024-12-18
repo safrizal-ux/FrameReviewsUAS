@@ -1,10 +1,28 @@
 @extends('layout.content')
 
 @section('content')
-<section class="py-6 d-flex justify-content-center">
+<section class="py-6">
     <div class="container">
-        <h4>Review Film Terbaru</h4>
-        <br>
+        <!-- Search bar and heading in the same row -->
+        <div class="row justify-content-between align-items-center mb-4">
+            <div class="col-auto">
+                <h4>Review Film Terbaru</h4>
+            </div>
+            <div class="col-auto">
+                <form method="GET" action="{{ route('article.search') }}" class="d-flex align-items-center ms-auto custom-search-bar">
+                    <div class="row w-100">
+                        <div class="col-sm-8">
+                            <div class="input-group input-group-outline">
+                                <input class="form-control" type="text" name="query" placeholder="Search articles...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 ps-0">
+                            <button type="submit" class="btn btn-dark w-100">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <br>
         @foreach ($articles as $article)
         <div class="col-lg-8 col-md-8 col-12 mx-auto mb-5"> <!-- Notice the mb-5 for margin-bottom -->

@@ -18,12 +18,18 @@ return new class extends Migration
             $table->string('post_image');
             $table->timestamp('published_at')->useCurrent();
             $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('user_id');  // Add this line for the user_id
             $table->timestamps();
-
+        
             $table->foreign('category_id')->references('category_id')->on('categories')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
-        });
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+        
+            // Add this foreign key constraint for user_id
+            $table->foreign('user_id')->references('id')->on('users')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
+        });        
     }
 
     /**
