@@ -67,9 +67,4 @@ class AuthController extends Controller
         auth::logout();
         return redirect()->route('login');
     }
-     
-    public function dashboard()
-    {
-        return view('article.index');
-    }
 }

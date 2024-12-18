@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" href="{{asset('assets/img/favicon.png')}}">
 
     <title>
-        UAS
+        FrameReviews
     </title>
     @include('layout.css')
 </head>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <header class="header-2">
-        <div class="page-header min-vh-50 relative" style="background-image: url('{{asset('assets/img/bg-landing.jpg')}}')">
+        <div class="page-header min-vh-55 relative" style="background-image: url('{{asset('assets/img/62-10.jpg')}}')">
             <span class="mask bg-gradient-dark opacity-4"></span>
             <div class="container">
                 <div class="row">

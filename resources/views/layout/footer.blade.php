@@ -4,7 +4,7 @@
             <div class="col-md-3 mb-4 ms-auto">
                 <div>
                     <a href="https://www.creative-tim.com/product/material-kit">
-                        <img src="./assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
+                        <img src="{{asset('assets/img/logo-ct-dark.png')}}" class="mb-3 footer-logo" alt="main_logo">
                     </a>
                     <h6 class="font-weight-bolder mb-4">Material Kit 3</h6>
                 </div>

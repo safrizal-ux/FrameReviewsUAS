@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; // Import query builder facade
+use HTMLPurifier;
+use HTMLPurifier_Config;
 
 class ArticleController extends Controller
 {
@@ -14,9 +16,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('category')->get();  // Mengambil semua artikel beserta kategori terkait
-        return view('article.index', compact('articles'));  // Mengirim data ke view
+        // Mengambil semua artikel beserta kategori terkait, diurutkan berdasarkan published_at dari yang terbaru
+        $articles = Article::with('category')->whereNotNull('published_at')->orderBy('published_at', 'desc')->get();
+        // Mengirim data ke view
+        return view('article.index', compact('articles'));
     }
+
 
 
     /**
@@ -34,7 +39,6 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-
         // dd($request->all());
         $request->validate([
             'title' => 'required|max:255',
@@ -60,15 +64,37 @@ class ArticleController extends Controller
         return redirect()->route('article.index')->with('success', 'Article created successfully.');
     }
 
-
-
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        // Using Query Builder to fetch article data along with the category
+        $article = DB::table('articles')
+            ->join('categories', 'articles.category_id', '=', 'categories.category_id')
+            ->where('articles.article_id', $id)
+            ->select(
+                'articles.title',
+                'articles.content',
+                'articles.post_image',
+                'categories.name as category_name'
+            )
+            ->first();
+
+        // Check if the article exists
+        if (!$article) {
+            abort(404);
+        }
+
+        $config = HTMLPurifier_Config::createDefault();
+        $config->set('HTML.Allowed', 'b,strong,i,em,u,a[href|title],ul,ol,li,p,br,img[alt|src]');
+        $purifier = new HTMLPurifier($config);
+
+        $clean_html = $purifier->purify($article->content);
+
+        return view('article.show', compact('article', 'clean_html'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -93,4 +119,20 @@ class ArticleController extends Controller
     {
         //
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+    
+        $articles = DB::table('articles')
+            ->join('categories', 'articles.category_id', '=', 'categories.category_id') // Asumsikan kolom di categories adalah 'id'
+            ->select('articles.article_id', 'articles.title', 'articles.content', 'articles.post_image', 'articles.published_at', 'categories.name as category_name') // Ganti 'category_id' dengan 'categories.name'
+            ->where('articles.title', 'like', '%' . $query . '%')
+            ->orWhere('articles.content', 'like', '%' . $query . '%')
+            ->paginate(10);
+    
+        return view('article.searchresult', compact('articles'));
+    }
+    
+
 }
