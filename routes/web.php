@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminArticleController;
 use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\BookmarkController;
 
 // Route::get('/', function () {
 //     if (Auth::check()) {
@@ -46,6 +47,9 @@ Route::middleware(LoginFalseMiddleware::class)->group(function () {
     Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
     Route::get('/article/show/{id}', [ArticleController::class, 'show'])->name('article.show');
     Route::delete('/article/destroy{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
+
+    Route::get('/bookmarks', [BookmarkController::class, 'index'])->name('bookmark.index');
+    Route::post('/articles/bookmark/{articleId}', [BookmarkController::class, 'toggleBookmark'])->name('articles.bookmark');
 
     Route::post('/article/{articleId}/comment', [CommentController::class, 'store'])->name('comment.store');
 

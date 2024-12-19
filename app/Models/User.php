@@ -34,5 +34,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class, 'user_id', 'id'); // pastikan key-nya benar
     }
+
+    // Relasi ke Bookmark
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class, 'user_id');
+    }
+
+    // Relasi melalui Bookmark untuk mendapatkan artikel yang di-bookmark
+    public function bookmarkedArticles()
+    {
+        return $this->belongsToMany(Article::class, 'bookmarks', 'user_id', 'article_id');
+    }
+
 }
 
