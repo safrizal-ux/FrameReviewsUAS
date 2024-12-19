@@ -28,7 +28,7 @@
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Title</th>
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Content</th>
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Published At</th>
-                  <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Edit</th>
+                  {{-- <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Edit</th> --}}
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Delete</th>
                 </tr>
               </thead>
@@ -44,11 +44,11 @@
                   <td class="align-middle text-center">
                     <span class="text-secondary text-xs font-weight-bold">{{ $article->published_at }}</span>
                   </td>
-                  <td class="align-middle text-center">
+                  {{-- <td class="align-middle text-center">
                     <a href="{{ route('admin.article.edit', $article) }}" class="btn btn-warning btn-sm me-2" data-toggle="tooltip" title="Edit">
                       Edit
                     </a>
-                  </td>
+                  </td> --}}
                   <td class="align-middle text-center">
                     <form action="{{ route('admin.article.destroy', $article) }}" method="POST" style="display: inline-block;">
                       @csrf

@@ -5,11 +5,12 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
+                <!-- Article Card -->
                 <div class="card card-blog card-plain">
                     <div class="card-header p-0 position-relative z-index-2">
                         <a class="d-block blur-shadow-image">
                             <img src="{{ asset('storage/images/' . $article->post_image) }}" 
-                                 alt="image of {{ $article->title }}" 
+                                 alt="Image of {{ $article->title }}" 
                                  class="img-fluid border-radius-lg">
                         </a>
                         <div class="colored-shadow" 
@@ -20,18 +21,19 @@
                         <h4>{{ $article->title }}</h4>
                         <br>
                         <div style="text-align: left;">
-                            {!! $clean_html !!}
+                            <!-- Display sanitized content -->
+                            {!! $article->content !!}
                         </div>
                     </div>
                     <p>Written by: <strong>{{ $article->author_name }}</strong></p>
                 </div>
 
-                {{-- Like Button --}}
+                <!-- Like Button -->
                 <button id="like-btn" class="btn btn-primary mt-3">
                     <span id="like-count">{{ $article->likes }}</span> Likes
                 </button>
 
-                {{-- Comment Section --}}
+                <!-- Comment Section -->
                 <h5 class="mt-5">Comments</h5>
 
                 @foreach($comments as $comment)
@@ -44,7 +46,7 @@
                     </div>
                 @endforeach
 
-                {{-- Add Comment Form --}}
+                <!-- Add Comment Form -->
                 <form action="{{ route('comment.store', $article->article_id) }}" method="POST" class="mt-4">
                     @csrf
                     <div class="form-group">

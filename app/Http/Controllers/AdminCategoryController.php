@@ -39,17 +39,19 @@ class AdminCategoryController extends Controller
     return view('admin.category.edit', compact('category'));
 }
 
+public function update(Request $request, Category $category)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+    ]);
 
-    public function update(Request $request, Category $category)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable'
-        ]);
+    $category->update($request->only(['name', 'description']));
 
-        $category->update($request->all());
-        return redirect()->route('admin.category.index')->with('success', 'Category updated successfully.');
-    }
+    return redirect()->route('admin.category.index')->with('success', 'Category updated successfully.');
+}
+
+
 
     public function destroy(Category $category)
     {

@@ -30,7 +30,7 @@
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Name</th>
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Email</th>
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Bio</th>
-                  <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Edit</th>
+                  {{-- <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Edit</th> --}}
                   <th class="text-center text-uppercase text-secondary text-xs font-weight-bolder opacity-7">Delete</th>
                 </tr>
               </thead>
@@ -52,9 +52,9 @@
                     <td class="text-center">
                       <p class="text-xs text-secondary mb-0">{{ $user->bio }}</p>
                     </td>
-                    <td class="text-center">
+                    {{-- <td class="text-center">
                       <a href="{{ route('admin.user.edit', $user) }}" class="btn btn-warning btn-sm" title="Edit">Edit</a>
-                    </td>
+                    </td> --}}
                     <td class="text-center">
                       <form action="{{ route('admin.user.destroy', $user) }}" method="POST" style="display:inline;">
                         @csrf
