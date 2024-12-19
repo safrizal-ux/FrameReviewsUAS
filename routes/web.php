@@ -14,6 +14,8 @@ use App\Http\Controllers\AdminCategoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\AccountController;
+
 
 // Route::get('/', function () {
 //     if (Auth::check()) {
@@ -44,6 +46,10 @@ Route::middleware(LoginFalseMiddleware::class)->group(function () {
     Route::get('/article/history', [ArticleController::class, 'history'])->name('article.history');
     Route::get('/article', [ArticleController::class, 'index'])->name('article.index');
     Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::get('/article/account', [ArticleController::class, 'account'])->name('article.account');
+
+    Route::get('/article/account', [AccountController::class, 'index'])->name('article.account');
+
     Route::post('/article/store', [ArticleController::class, 'store'])->name('article.store');
     Route::get('/article/show/{id}', [ArticleController::class, 'show'])->name('article.show');
     Route::delete('/article/destroy{article}', [ArticleController::class, 'destroy'])->name('article.destroy');
