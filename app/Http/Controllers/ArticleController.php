@@ -78,34 +78,40 @@ class ArticleController extends Controller
      */
    
 
-public function show($id)
-{
-    // Using Query Builder to fetch article data along with the category and author
-    $article = DB::table('articles')
-        ->join('categories', 'articles.category_id', '=', 'categories.category_id')
-        ->join('users', 'articles.user_id', '=', 'users.id') // Join with users table
-        ->where('articles.article_id', $id)
-        ->select(
-            'articles.article_id', // Ensure to select the article_id (primary key)
-            'articles.title',
-            'articles.content',
-            'articles.post_image',
-            'articles.likes',
-            'categories.name as category_name',
-            'users.name as author_name' // Fetch author's name
-        )
-        ->first();
-            
-        $comments = Comment::where('article_id', $id)->with('user')->get();
-    // Check if the article exists
-    if (!$article) {
-        abort(404);
-    }
-
-    // Passing the data to the view
-    $clean_html = strip_tags($article->content); // Clean content, optional
-    return view('article.show', compact('article', 'clean_html', 'comments'));
-}
+     public function show($id)
+     {
+         $article = DB::table('articles')
+             ->join('categories', 'articles.category_id', '=', 'categories.category_id')
+             ->join('users', 'articles.user_id', '=', 'users.id')
+             ->where('articles.article_id', $id)
+             ->select(
+                 'articles.article_id',
+                 'articles.title',
+                 'articles.content',
+                 'articles.post_image',
+                 'articles.likes',
+                 'categories.name as category_name',
+                 'users.name as author_name'
+             )
+             ->first();
+     
+         $comments = Comment::where('article_id', $id)->with('user')->get();
+     
+         if (!$article) {
+             abort(404);
+         }
+     
+         // Konfigurasi HTMLPurifier
+         $config = HTMLPurifier_Config::createDefault();
+         $config->set('HTML.Allowed', 'b,i,strong,em,p,ul,li,ol,a[href],br,img[src|alt|width|height]');
+         $config->set('URI.AllowedSchemes', ['http' => true, 'https' => true]); // Hanya izinkan HTTP/HTTPS
+         $purifier = new HTMLPurifier($config);
+     
+         // Membersihkan konten artikel
+         $article->content = $purifier->purify($article->content);
+     
+         return view('article.show', compact('article', 'comments'));
+     }
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
 
@@ -15,17 +16,39 @@ class AdminArticleController extends Controller
 
     public function create()
     {
-        return view('admin.article.create');
+        $categories = Category::all(); // Ambil semua kategori dari database
+        return view('article.create', compact('categories')); // Ganti 'your-view-name' dengan nama view Anda
+        // return view('admin.article.create');
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
-        ]);
+        // $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'content' => 'required',
+        // ]);
 
-        Article::create($request->all());
+        // Article::create($request->all());
+        // return redirect()->route('admin.article.index')->with('success', 'Article created successfully.');
+        $data = [
+            'title' => $request->title,
+            'content' => $request->content,
+            'category_id' => $request->category,
+            'published_at' => now(),
+            'user_id' => $request->user_id // Menggunakan ID pengguna yang sedang login
+        ];
+    
+        // Jika ada file gambar yang diunggah
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension(); // Nama file unik
+            $request->image->storeAs('images', $imageName, 'public'); // Simpan di folder public/images
+            $data['post_image'] = $imageName; // Tambahkan ke array data
+        }
+    
+        // Gunakan model untuk menyimpan data
+        Article::create($data); // Menggunakan model untuk menyimpan agar lebih rapi
+    
+        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('admin.article.index')->with('success', 'Article created successfully.');
     }
 
