@@ -1,7 +1,7 @@
 @extends('layout.content')
 
 @section('content')
-<section class="py-6">
+<section class="py-3">
     <div class="container">
         <!-- Search bar and heading in the same row -->
         <div class="row justify-content-between align-items-center mb-4">

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('published_at')->useCurrent();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');  // Add this line for the user_id
+            $table->unsignedInteger('likes')->default(0);
             $table->timestamps();
         
             $table->foreign('category_id')->references('category_id')->on('categories')

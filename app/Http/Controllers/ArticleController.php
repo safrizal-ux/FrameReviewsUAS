@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -75,33 +76,38 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
-    {
-        // Using Query Builder to fetch article data along with the category
-        $article = DB::table('articles')
-            ->join('categories', 'articles.category_id', '=', 'categories.category_id')
-            ->where('articles.article_id', $id)
-            ->select(
-                'articles.title',
-                'articles.content',
-                'articles.post_image',
-                'categories.name as category_name'
-            )
-            ->first();
+   
 
-        // Check if the article exists
-        if (!$article) {
-            abort(404);
-        }
-
-        $config = HTMLPurifier_Config::createDefault();
-        $config->set('HTML.Allowed', 'b,strong,i,em,u,a[href|title],ul,ol,li,p,br,img[alt|src]');
-        $purifier = new HTMLPurifier($config);
-
-        $clean_html = $purifier->purify($article->content);
-
-        return view('article.show', compact('article', 'clean_html'));
+public function show($id)
+{
+    // Using Query Builder to fetch article data along with the category and author
+    $article = DB::table('articles')
+        ->join('categories', 'articles.category_id', '=', 'categories.category_id')
+        ->join('users', 'articles.user_id', '=', 'users.id') // Join with users table
+        ->where('articles.article_id', $id)
+        ->select(
+            'articles.article_id', // Ensure to select the article_id (primary key)
+            'articles.title',
+            'articles.content',
+            'articles.post_image',
+            'articles.likes',
+            'categories.name as category_name',
+            'users.name as author_name' // Fetch author's name
+        )
+        ->first();
+            
+        $comments = Comment::where('article_id', $id)->with('user')->get();
+    // Check if the article exists
+    if (!$article) {
+        abort(404);
     }
+
+    // Passing the data to the view
+    $clean_html = strip_tags($article->content); // Clean content, optional
+    return view('article.show', compact('article', 'clean_html', 'comments'));
+}
+
+
 
 
     /**
@@ -123,10 +129,14 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
-    {
-        //
+    public function destroy(Article $article)
+{
+    if ($article->user_id !== Auth::id()) {
+        abort(403, 'Unauthorized action.');
     }
+    $article->delete();
+    return redirect()->route('article.history')->with('success', 'Artikel berhasil dihapus.');
+}
 
     public function search(Request $request)
     {
@@ -142,5 +152,29 @@ class ArticleController extends Controller
         return view('article.searchresult', compact('articles'));
     }
     
+    public function history()
+    {
+        // Mengambil artikel berdasarkan user yang sedang login
+        $articles = Article::where('user_id', Auth::id())->get();
+        return view('article.history', compact('articles'));
+    }
+
+    public function like($id)
+{
+    // Fetch the article to increment likes
+    $article = DB::table('articles')->where('article_id', $id)->first();
+    
+    if ($article) {
+        // Increment likes
+        DB::table('articles')->where('article_id', $id)->increment('likes');
+        
+        return response()->json([
+            'success' => true,
+            'likes' => $article->likes + 1, // Return updated like count
+        ]);
+    }
+    
+    return response()->json(['success' => false]);
+}
 
 }
