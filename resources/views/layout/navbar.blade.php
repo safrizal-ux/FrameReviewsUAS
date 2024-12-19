@@ -18,7 +18,8 @@
             <!-- Bagian tengah -->
             <ul class="navbar-nav navbar-nav-hover mx-auto">
                 @auth
-                @if (in_array(auth()->user()->role_id, [1, 2]))
+                {{-- @if (in_array(auth()->user()->role_id, [1, 2])) --}}
+                @if (auth()->user()->role_id == 2)
                     <li class="nav-item ms-lg-auto">
                         <a class="nav-link nav-link-icon me-2" href="{{ route('article.index') }}">
                             <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
@@ -50,39 +51,49 @@
                 @auth
                     @if (auth()->user()->role_id == 1)
                         <!-- Periksa apakah user memiliki role 1 -->
-                        <li class="nav-item dropdown dropdown-hover mx-2">
-                            <a class="nav-link ps-2 d-flex cursor-pointer align-items-center font-weight-semibold"
-                                id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                                Admin
-                                <img src="{{ asset('assets/img/down-arrow-dark.svg') }}" alt="down-arrow"
-                                    class="arrow ms-auto ms-md-2">
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="{{ route('article.index') }}">
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="Star us on Github">Home</p>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-animation ms-n8 dropdown-md p-3 border-radius-xl mt-0 mt-lg-3"
-                                aria-labelledby="dropdownMenuPages">
-                                <div class="d-none d-lg-block">
-                                    <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center px-1">
-                                        Admin Pages
-                                    </h6>
-                                    <a href="{{route('admin.article.index')}}" class="dropdown-item border-radius-md">
-                                        <span>Article</span>
-                                    </a>
-                                    <a href="{{route('admin.user.index')}}" class="dropdown-item border-radius-md">
-                                        <span>User</span>
-                                    </a>
-                                    <a href="{{route('admin.category.index')}}" class="dropdown-item border-radius-md">
-                                        <span>Category</span>
-                                    </a>
-                                    
-                                </div>
-                            </div>
+                        </li>
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="">
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="Star us on Github">|</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="{{route('admin.article.index')}}">
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="Star us on Github">Article</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="{{route('admin.user.index')}}">
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="Star us on Github">User</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link nav-link-icon me-2" href="{{route('admin.category.index')}}">
+                                <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom" data-bs-original-title="Star us on Github">Category</p>
+                            </a>
                         </li>
                         
                     @endif
                 @endauth
                 <li class="nav-item ms-lg-auto">
-                    <a class="nav-link nav-link-icon me-2" href="{{ route('article.create') }}">
+                    <a class="nav-link nav-link-icon me-2" href="">
                         <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" data-bs-original-title="Star us on Github">Write</p>
+                            data-bs-placement="bottom" data-bs-original-title="Star us on Github">|</p>
+                    </a>
+                </li>
+                <li class="nav-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2" href="{{ route('logout') }}">
+                        <p class="d-inline text-sm z-index-1 font-weight-semibold" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" data-bs-original-title="Star us on Github">Logout</p>
                     </a>
                 </li>
             </ul>

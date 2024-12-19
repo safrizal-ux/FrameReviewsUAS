@@ -1,7 +1,7 @@
 @extends('layout.content')
 
 @section('content')
-<section class="py-3">
+<section class="pt-3 mt-3">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
