@@ -47,5 +47,18 @@ class Article extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    // Relasi ke Bookmark
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class, 'article_id');
+    }
+
+    // Relasi melalui Bookmark untuk mendapatkan pengguna yang menandai artikel
+    public function bookmarkedBy()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks', 'article_id', 'user_id');
+    }
+
 }
 
