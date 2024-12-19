@@ -74,7 +74,7 @@ Route::middleware(LoginFalseMiddleware::class)->group(function () {
     Route::delete('/admin/user/{user}', [AdminUserController::class, 'destroy'])->name('admin.user.destroy');
 });
 
-// duar
+// duar duar
 
 // Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])
 //     ->name('admin.dashboard')
