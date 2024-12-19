@@ -43,12 +43,12 @@ class ArticleController extends Controller
 {
     // Validasi input
     // dd($request->all());
-    $request->validate([
-        'title' => 'required|max:255',
-        'content' => 'required',
-        'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'category' => 'required' // Pastikan category yang dipilih valid
-    ]);
+    // $request->validate([
+    //     'title' => 'required|max:255',
+    //     'content' => 'required',
+    //     'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //     'category' => 'required' // Pastikan category yang dipilih valid
+    // ]);
 
     // Data yang akan disimpan
     $data = [
